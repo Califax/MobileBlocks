@@ -32,8 +32,7 @@ public class GameThread extends Thread {
 		Log.d(TAG, "Starting game loop");
 		while (running) {
 			canvas = null;
-			// try locking the canvas for exclusive pixel editing
-			// in the surface
+
 			try {
 				canvas = this.surfaceHolder.lockCanvas();
 				synchronized (surfaceHolder) {
@@ -41,7 +40,7 @@ public class GameThread extends Thread {
 					this.gamePanel.update();
 					// render state to the screen
 					// draws the canvas on the panel
-					if(canvas != null)
+					if (canvas != null)
 						this.gamePanel.render(canvas);				
 				}
 			} finally {

@@ -62,13 +62,21 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	
 	public void update() 
 	{
-
+		synchronized (blockList) {
+			for (Block block : blockList) {
+				block.update();
+			}
+		}
+		
 	}
 	
 	public void render(Canvas canvas)
 	{
 		canvas.drawColor(Color.BLUE);
-		//TODO make draw commands for each object
-		//.draw(canvas);
+		synchronized (blockList) {
+			for (Block block : blockList) {
+				block.draw();
+			}
+		}
 	}
 }
