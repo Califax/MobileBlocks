@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.game.Units.Block;
+import com.game.Units.BouncyBlock;
 import com.game.Units.WaveyBlock;
 
 public class Level {
@@ -50,9 +51,11 @@ public class Level {
 		
 		blockList = new ArrayList<Block>();
 		for (int i = 0; i < rand.nextInt(maxBlocksPerRow); i++) {
-
-			if( rand.nextInt(2) == 1)
+			int r = rand.nextInt(3);
+			if( r == 1)
 				currBlock = new Block(rand.nextInt(gameWidth - blockWidth),0, colorPicker.randomColor());
+			else if(r == 2)
+				currBlock = new BouncyBlock(rand.nextInt(gameWidth - blockWidth),rand.nextInt(5), 50, 50,2,3,colorPicker.randomColor());
 			else
 				currBlock = new WaveyBlock(rand.nextInt(gameWidth - blockWidth),rand.nextInt(5), 50, 50,2,3,colorPicker.randomColor());
 			//currBlock = new Block(rand.nextInt(gameWidth - blockWidth),rand.nextInt(5), 50, 50,2,3,GamePanel.pics.get(0));
