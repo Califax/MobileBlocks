@@ -64,5 +64,11 @@ public class Block {
 		this.color = color;
 	}
 	
+	public void update() {
+		this.x += deltaX;
+		this.y += deltaY;
+	}
+	
+	
 
 }
