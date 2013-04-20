@@ -7,6 +7,7 @@ import java.util.Random;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -25,6 +26,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	private ColorPicker colorPicker = new  ColorPicker();
 	private Player player;
 	private Level level;
+	private final String score = "Score: ";
+	private final String lives = "Lives: ";
+	private String score_plus = "";
+	private String lives_plus = "";
+	private Paint p;
+	private final int paintSize = 40;
 	
 	public GamePanel(Context context) {
 		super(context);
@@ -37,6 +44,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 		// make the GamePanel focusable so it can handle events
 		setFocusable(true);
+		
+		p = new Paint();
+		p.setColor(Color.CYAN);
+		p.setTextSize(paintSize);
+		player = new Player(0,3);
 	}
 
 
@@ -115,6 +127,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	public void render(Canvas canvas)
 	{
 		canvas.drawColor(Color.BLACK);
+		score_plus = score + player.getScore();
+		lives_plus = lives + player.getLives();
+		//float[] pos = genPos(score_plus);
+		canvas.drawText(score_plus, 0,paintSize, p);
+		canvas.drawText(lives_plus, 3*width/4,paintSize, p);
+		//canvas.drawPosText(score_plus, pos, p);
 		synchronized (blockList) {
 			for (Block block : blockList) {
 				block.draw(canvas);
@@ -122,6 +140,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		}
 	}
 
+	/*public float[] genPos(String s)
+	{
+		float[] retFloatArr = new float[s.length()*2];
+		for(int i = 0; i  < retFloatArr.length; i+=2)
+		{
+			retFloatArr[i] = i*2;
+			retFloatArr[i+1] = 2;
+		}
+		return retFloatArr;
+	}*/
 
 	public void updateSize(int w, int h) {
 		this.height = h;
