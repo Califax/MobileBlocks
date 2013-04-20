@@ -13,6 +13,7 @@ public class Level {
 	private int maxBlocksPerRow;
 	private int blockGenSpeed;
 	private int gameWidth;
+	private int creationSpeed;
 	
 	private List<Block> blockList;
 	private Random rand;
@@ -29,6 +30,12 @@ public class Level {
 		this.maxBlocksPerRow = maxBlocksPerRow;
 		this.blockGenSpeed = blockGenSpeed;
 		this.gameWidth = gameWidth;
+		this.creationSpeed = 500;
+	}
+	
+	public int getCreationSpeed()
+	{
+		return creationSpeed;
 	}
 	
 	public List<Block> randomBlocks() {
