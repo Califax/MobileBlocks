@@ -7,6 +7,7 @@ import java.util.Random;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -27,12 +28,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	private Player player;
 	private Level level;
 	private Bins bins;
+	private final String score = "Score: ";
+	private final String lives = "Lives: ";
+	private String score_plus = "";
+	private String lives_plus = "";
+	private Paint p;
+	private final int paintSize = 40;
 	
 	public GamePanel(Context context) {
 		super(context);
 		// adding the callback (this) to the surface holder to intercept events
 		getHolder().addCallback(this);
-		player = new Player(0, 3);
 
 		// create blocks and load bitmap
 		// create the game loop thread
@@ -40,6 +46,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 		// make the GamePanel focusable so it can handle events
 		setFocusable(true);
+		
+		p = new Paint();
+		p.setColor(Color.CYAN);
+		p.setTextSize(paintSize);
+		player = new Player(0,3);
 	}
 
 
@@ -72,7 +83,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	}
 
 	public void update() {
-
+		if (player.getLives() <= 0) {
+			
+		}
 		synchronized (blockList) {
 			if (System.currentTimeMillis() - last > 1000) {
 				if(blockList.size() < TOTAL_BLOCKS)
@@ -131,6 +144,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	public void render(Canvas canvas)
 	{
 		canvas.drawColor(Color.BLACK);
+		score_plus = score + player.getScore();
+		lives_plus = lives + player.getLives();
+		canvas.drawText(score_plus, 0,paintSize, p);
+		canvas.drawText(lives_plus, 3*width/4,paintSize, p);
 		synchronized (blockList) {
 			for (Block block : blockList) {
 				block.draw(canvas);

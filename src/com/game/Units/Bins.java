@@ -11,8 +11,8 @@ import com.game.mobileblocks.GamePanel;
 public class Bins {
 	List<Bin> bins;
 	Bin blueBin = new Bin(0, GamePanel.height-5, (GamePanel.width / 3) - 10, 5, 0, 0, Color.BLUE);
-	Bin redBin = new Bin(blueBin.getX() + blueBin.getWidth()+10, GamePanel.height-5, (GamePanel.width / 3) - 10, 5, 0, 0, Color.RED);
-	Bin greenBin = new Bin(redBin.getX() + redBin.getWidth()+10, GamePanel.height-5, (GamePanel.width / 3) - 10, 5, 0, 0, Color.GREEN);
+	Bin redBin = new Bin(blueBin.getX() + blueBin.getWidth()+20, GamePanel.height-5, (GamePanel.width / 3) - 10, 5, 0, 0, Color.RED);
+	Bin greenBin = new Bin(redBin.getX() + redBin.getWidth()+20, GamePanel.height-5, (GamePanel.width / 3) - 10, 5, 0, 0, Color.GREEN);
 	
 	public Bins() {
 		bins = new ArrayList<Bin>();
