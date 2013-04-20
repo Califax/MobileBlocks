@@ -95,7 +95,7 @@ public class Block {
 		if(bitmap != null)
 			canvas.drawBitmap(bitmap, x - (bitmap.getWidth() / 2), y - (bitmap.getHeight() / 2), null);
 		else
-			canvas.drawRect(x, y, width, height,paint);
+			canvas.drawRect(x, y, x+width, y+height,paint);
 		
 	}
 	
