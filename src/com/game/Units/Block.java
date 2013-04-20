@@ -10,14 +10,15 @@ public class  Block {
 	
 	protected int x;
 	protected int y;
-	protected int width;
-	protected int height;
+	public static int width = 50;
+	public static int height = 50;
 	protected int deltaX;
 	protected int deltaY;
 	protected int color;
 	protected RectF r;
 	protected Bitmap bitmap;
 	protected Paint paint;
+
 	
 	private Block(int x, int y, int width, int height, int deltaX, int deltaY)
 	{
@@ -40,7 +41,7 @@ public class  Block {
 	
 	
 	public Block(int x, int y, int color) {
-		this(x, y, 10, 10, 10, 10, color);
+		this(x, y, width, height, 2, 2, color);
 	}
 	
 	public Block(int x, int y, int width, int height, int deltaX, int deltaY,Bitmap b ) {
@@ -92,22 +93,37 @@ public class  Block {
 	}
 	
 	public void draw(Canvas canvas) {
-		if(bitmap != null)
+		if(bitmap != null) {
 			canvas.drawBitmap(bitmap, x - (bitmap.getWidth() / 2), y - (bitmap.getHeight() / 2), null);
-		else
+		}
+		else {
 			canvas.drawRect(x, y, x+width, y+height,paint);
+		}
 		
 	}
 	
 
 
 	public boolean isCollision(int x, int y) {
-		
+
 		return ! ( (x> (this.x+this.width))
-			      || ((x+40) < this.x) 
-			      || (y > (this.y+ this.height))
-			      || ((y+40) < this.y));
-		
+				|| ((x+40) < this.x) 
+				|| (y > (this.y+ this.height))
+				|| ((y+40) < this.y));
+
+	}
+	
+	public boolean isCollisionBlock(int x, int y, int w, int h) {
+
+		return ! ( (x> (this.x+this.width))
+				|| ((x+w) < this.x) );
+				//|| (y > (this.y+ this.height))
+				//|| ((y+h) < this.y));
+
+	}
+
+	public int getHeight() {
+		return height;
 	}
 	
 	
