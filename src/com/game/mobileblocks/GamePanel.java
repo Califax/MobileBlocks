@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -34,7 +36,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	private String lives_plus = "";
 	private Paint p;
 	private final int paintSize = 40;
-	
+	public static ArrayList<Bitmap> pics = new ArrayList<Bitmap>();
 	public GamePanel(Context context) {
 		super(context);
 		// adding the callback (this) to the surface holder to intercept events
@@ -51,6 +53,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		p.setColor(Color.CYAN);
 		p.setTextSize(paintSize);
 		player = new Player(0,3);
+		//pics.add(BitmapFactory.decodeResource(getResources(), R.drawable.bannana));
 	}
 
 
@@ -86,7 +89,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 			// TODO: Defeat screen
 		}
 		synchronized (blockList) {
-			if (System.currentTimeMillis() - last > 1000) {
+			if (System.currentTimeMillis() - last > level.getCreationSpeed()) {
 				if(blockList.size() < TOTAL_BLOCKS)
 				{
 					genRandomBlocks();
