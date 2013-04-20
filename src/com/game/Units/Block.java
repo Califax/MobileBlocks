@@ -99,6 +99,19 @@ public class Block {
 		
 	}
 	
+
+
+	public boolean isCollision(int x, int y) {
+		
+		return ! ( (x> (this.x+this.width))
+			      || ((x+20) < this.x) 
+			      || (y > (this.y+ this.height))
+			      || ((y+40) < this.y));
+		
+	}
+	
+	
+	
 	
 
 }

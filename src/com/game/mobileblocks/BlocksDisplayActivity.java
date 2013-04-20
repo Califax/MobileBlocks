@@ -18,6 +18,7 @@ public class BlocksDisplayActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// making it full screen
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
 		// set our MainGamePanel as the View
 		setContentView(new GamePanel(this));
 		Log.d(TAG, "View added");

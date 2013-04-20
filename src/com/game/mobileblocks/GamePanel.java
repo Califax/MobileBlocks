@@ -2,10 +2,12 @@ package com.game.mobileblocks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -16,6 +18,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	private static final String TAG = GamePanel.class.getSimpleName();
 	private GameThread thread; 
 	private List<Block> blockList = new ArrayList<Block>();
+	private final int TOTAL_BLOCKS = 10;
+	private int height, width;
 	
 	public GamePanel(Context context) {
 		super(context);
@@ -29,7 +33,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		
 		// make the GamePanel focusable so it can handle events
 		setFocusable(true);
-		blockList.add(new Block(10, 10, 50,50,20,20,Color.CYAN));
+		this.height = this.width = 10;
 	}
 
 
@@ -64,6 +68,18 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	public void update() 
 	{
 		synchronized (blockList) {
+			if(blockList.size() < TOTAL_BLOCKS)
+			{
+				//TODO write random algorithm to determine color or bitmap
+				int sizeTo = TOTAL_BLOCKS -blockList.size();
+				Random r = new Random();
+				for(int i = 0; i < sizeTo; i++)
+				{
+					int xRand = r.nextInt(this.height/2);
+					int yRand = r.nextInt(this.width);
+					blockList.add(new Block(xRand,yRand, 50,50,0,2,Color.CYAN));
+				}
+			}
 			for (Block block : blockList) {
 				block.update();
 			}
@@ -71,13 +87,41 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		
 	}
 	
+	public boolean onTouchEvent(MotionEvent event)
+	{
+		boolean retVal = false;
+		if (event.getAction() == MotionEvent.ACTION_DOWN)
+		{
+			synchronized (blockList) {
+				for (Block block : blockList) {
+					retVal = block.isCollision((int)event.getX(), (int)event.getY());
+					if(retVal)
+					{
+						blockList.remove(block);
+						break;
+					}
+				}
+			}
+		}
+		return false;
+
+	}	
+	
 	public void render(Canvas canvas)
 	{
+
 		canvas.drawColor(Color.BLUE);
 		synchronized (blockList) {
 			for (Block block : blockList) {
 				block.draw(canvas);
 			}
 		}
+	}
+
+
+	public void updateSize(int w, int h) {
+		this.height = h;
+		this.width  = w;
+		
 	}
 }
