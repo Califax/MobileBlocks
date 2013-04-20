@@ -44,5 +44,9 @@ public class BlocksDisplayActivity extends Activity {
 		getMenuInflater().inflate(R.menu.blocks_display, menu);
 		return true;
 	}
+	
+	public void onPause() {
+		
+	}
 
 }

@@ -57,7 +57,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -84,7 +83,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 	public void update() {
 		if (player.getLives() <= 0) {
-			
+			// TODO: Defeat screen
 		}
 		synchronized (blockList) {
 			if (System.currentTimeMillis() - last > 1000) {
@@ -128,7 +127,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		{
 			synchronized (blockList) {
 				for (Block block : blockList) {
-					retVal = block.isCollision((int)event.getX(), (int)event.getY());
+//					retVal = block.isCollision((int)event.getX(), (int)event.getY());
+					retVal = block.isCollisionBlock((int)event.getX(), (int)event.getY(), 20, 20);
 					if(retVal)
 					{
 						blockList.remove(block);
