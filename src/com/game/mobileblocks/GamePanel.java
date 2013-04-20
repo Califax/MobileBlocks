@@ -22,17 +22,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	private final int TOTAL_BLOCKS = 10;
 	private int height, width;
 	private long last;
-	
+
 	public GamePanel(Context context) {
 		super(context);
 		// adding the callback (this) to the surface holder to intercept events
 		getHolder().addCallback(this);
 
 		// create blocks and load bitmap
-	
+
 		// create the game loop thread
 		thread = new GameThread(getHolder(), this);
-		
+
 		// make the GamePanel focusable so it can handle events
 		setFocusable(true);
 		this.height = this.width = 10;
@@ -43,7 +43,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
@@ -64,37 +64,40 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		} catch (InterruptedException e) {
 			// try again shutting down the thread
 		}
-		
+
 	}
-	
+
 	public void update() 
 	{
-		
-		//if (System.currentTimeMillis() - last > 100) 
+
+
 		{
 			synchronized (blockList) {
-				if(blockList.size() < TOTAL_BLOCKS)
-				{
-					//TODO write random algorithm to determine color or bitmap
-					int sizeTo = TOTAL_BLOCKS -blockList.size();
-					Random r = new Random();
-					for(int i = 0; i < sizeTo; i++)
+				if (System.currentTimeMillis() - last > 1000) {
+					if(blockList.size() < TOTAL_BLOCKS)
 					{
-						int xRand = r.nextInt(this.width);
-						int yRand = r.nextInt(this.height/2);
-						blockList.add(new WaveyBlock(xRand,yRand, 50,50,2,2,Color.CYAN));
+						//TODO write random algorithm to determine color or bitmap
+						//int sizeTo = TOTAL_BLOCKS -blockList.size();
+						Random r = new Random();
+						//for(int i = 0; i < sizeTo; i++)
+						//{
+							int xRand = 10+r.nextInt(this.width-20);
+							int yRand = r.nextInt(10);
+							blockList.add(new WaveyBlock(xRand,yRand, 50,50,2,2,Color.CYAN));
+						//}
 					}
+					last = System.currentTimeMillis();
 				}
 				for (Block block : blockList)
 				{
 					block.update(2000);
 				}
 			}
-			//last = System.currentTimeMillis();
+
 		}
-		
+
 	}
-	
+
 	public boolean onTouchEvent(MotionEvent event)
 	{
 		boolean retVal = false;
@@ -114,7 +117,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		return false;
 
 	}	
-	
+
 	public void render(Canvas canvas)
 	{
 
@@ -130,6 +133,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	public void updateSize(int w, int h) {
 		this.height = h;
 		this.width  = w;
-		
+
 	}
 }
