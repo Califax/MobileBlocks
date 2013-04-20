@@ -41,7 +41,7 @@ public class  Block {
 	
 	
 	public Block(int x, int y, int color) {
-		this(x, y, width, height, 2, 2, color);
+		this(x, y, width, height, 0, 2, color);
 	}
 	
 	public Block(int x, int y, int width, int height, int deltaX, int deltaY,Bitmap b ) {
@@ -115,8 +115,10 @@ public class  Block {
 	
 	public boolean isCollisionBlock(int x, int y, int w, int h) {
 
-		return ! ( (x> (this.x+this.width))
-				|| ((x+w) < this.x) );
+		return Math.abs(this.x - x) < (Math.abs(this.width + w) / 2) 
+		&& (Math.abs(this.y - y) < (Math.abs(this.height + h)));
+//		return ! ( (x > (this.x+this.width))
+//				|| ((x+w) < this.x) );
 				//|| (y > (this.y+ this.height))
 				//|| ((y+h) < this.y));
 
