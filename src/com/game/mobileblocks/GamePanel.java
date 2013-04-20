@@ -20,7 +20,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	private GameThread thread; 
 	private List<Block> blockList = new ArrayList<Block>();
 	private final int TOTAL_BLOCKS = 10;
-	private int height, width;
+	public static int height, width;
 	private long last;
 	private ColorPicker colorPicker = new  ColorPicker();
 	private Player player;
@@ -114,7 +114,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 
 	public void render(Canvas canvas)
 	{
-		canvas.drawColor(Color.BLUE);
+		canvas.drawColor(Color.BLACK);
 		synchronized (blockList) {
 			for (Block block : blockList) {
 				block.draw(canvas);

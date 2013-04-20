@@ -1,5 +1,7 @@
 package com.game.Units;
 
+import com.game.mobileblocks.GamePanel;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -88,11 +90,14 @@ public class  Block {
 	}
 	
 	public void update(long delta) {
-		this.x += (delta * deltaX) / 1000;
-		this.y += (delta * deltaY) / 1000;
+		//if(x+width < GamePanel.width-1)
+			//this.x += (delta * deltaX) / 1000;
+		if(y+height < GamePanel.height-1)
+			this.y += (delta * deltaY) / 1000;
 	}
 	
 	public void draw(Canvas canvas) {
+		
 		if(bitmap != null) {
 			canvas.drawBitmap(bitmap, x - (bitmap.getWidth() / 2), y - (bitmap.getHeight() / 2), null);
 		}
