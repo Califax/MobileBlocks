@@ -6,18 +6,18 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-public class Block {
+public class  Block {
 	
-	private int x;
-	private int y;
-	private int width;
-	private int height;
-	private int deltaX;
-	private int deltaY;
-	private int color;
-	private RectF r;
-	private Bitmap bitmap;
-	private Paint paint;
+	protected int x;
+	protected int y;
+	protected int width;
+	protected int height;
+	protected int deltaX;
+	protected int deltaY;
+	protected int color;
+	protected RectF r;
+	protected Bitmap bitmap;
+	protected Paint paint;
 	
 	private Block(int x, int y, int width, int height, int deltaX, int deltaY)
 	{
@@ -86,9 +86,9 @@ public class Block {
 		this.color = color;
 	}
 	
-	public void update() {
-		this.x += deltaX;
-		this.y += deltaY;
+	public void update(long delta) {
+		this.x += (delta * deltaX) / 1000;
+		this.y += (delta * deltaY) / 1000;
 	}
 	
 	public void draw(Canvas canvas) {
@@ -104,7 +104,7 @@ public class Block {
 	public boolean isCollision(int x, int y) {
 		
 		return ! ( (x> (this.x+this.width))
-			      || ((x+20) < this.x) 
+			      || ((x+40) < this.x) 
 			      || (y > (this.y+ this.height))
 			      || ((y+40) < this.y));
 		

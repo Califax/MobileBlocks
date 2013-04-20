@@ -12,6 +12,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.game.Units.Block;
+import com.game.Units.WaveyBlock;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 {
@@ -20,6 +21,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	private List<Block> blockList = new ArrayList<Block>();
 	private final int TOTAL_BLOCKS = 10;
 	private int height, width;
+	private long last;
 	
 	public GamePanel(Context context) {
 		super(context);
@@ -67,22 +69,28 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	
 	public void update() 
 	{
-		synchronized (blockList) {
-			if(blockList.size() < TOTAL_BLOCKS)
-			{
-				//TODO write random algorithm to determine color or bitmap
-				int sizeTo = TOTAL_BLOCKS -blockList.size();
-				Random r = new Random();
-				for(int i = 0; i < sizeTo; i++)
+		
+		//if (System.currentTimeMillis() - last > 100) 
+		{
+			synchronized (blockList) {
+				if(blockList.size() < TOTAL_BLOCKS)
 				{
-					int xRand = r.nextInt(this.height/2);
-					int yRand = r.nextInt(this.width);
-					blockList.add(new Block(xRand,yRand, 50,50,0,2,Color.CYAN));
+					//TODO write random algorithm to determine color or bitmap
+					int sizeTo = TOTAL_BLOCKS -blockList.size();
+					Random r = new Random();
+					for(int i = 0; i < sizeTo; i++)
+					{
+						int xRand = r.nextInt(this.width);
+						int yRand = r.nextInt(this.height/2);
+						blockList.add(new WaveyBlock(xRand,yRand, 50,50,2,2,Color.CYAN));
+					}
+				}
+				for (Block block : blockList)
+				{
+					block.update(2000);
 				}
 			}
-			for (Block block : blockList) {
-				block.update();
-			}
+			//last = System.currentTimeMillis();
 		}
 		
 	}
