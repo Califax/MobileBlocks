@@ -29,6 +29,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		
 		// make the GamePanel focusable so it can handle events
 		setFocusable(true);
+		blockList.add(new Block(10, 10, 50,50,20,20,Color.CYAN));
 	}
 
 
