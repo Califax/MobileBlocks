@@ -108,13 +108,15 @@ public class  Block {
 	}
 	
 
-
+	
 	public boolean isCollision(int x, int y) {
-
+		
 		return ! ( (x> (this.x+this.width))
-				|| ((x+40) < this.x) 
+				|| ((x+60) < this.x) 
 				|| (y > (this.y+ this.height))
-				|| ((y+40) < this.y));
+				|| ((y+60) < this.y) );
+//				|| x - 40 > (this.x + this.width)
+//				|| (y-40 > (this.y+ this.height)) );
 
 	}
 

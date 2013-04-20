@@ -47,9 +47,9 @@ public class Level {
 		blockList = new ArrayList<Block>();
 		for (int i = 0; i < rand.nextInt(maxBlocksPerRow); i++) {
 			currBlock = new Block(rand.nextInt(gameWidth - blockWidth),0, colorPicker.randomColor());
-			while (collisionCheck(currBlock, blockList)) {
-				currBlock = new Block(rand.nextInt(gameWidth - blockWidth),0,colorPicker.randomColor());
-			}
+//			while (collisionCheck(currBlock, blockList)) {
+//				currBlock = new Block(rand.nextInt(gameWidth - blockWidth),0,colorPicker.randomColor());
+//			}
 			blockList.add(currBlock);
 		}
 		return blockList;
@@ -65,13 +65,13 @@ public class Level {
 	}
 
 	public void update(int score) {
-		if (score % 20 == 0) {
+		if (score % 5 == 0) {
 			maxSpeed++;
 		}
-		if (score % 25 == 0) {
+		if (score % 10 == 0) {
 			minSpeed++;
 		}
-		if (score % 30 == 0) {
+		if (score % 10 == 0) {
 			blockGenSpeed++;
 			maxBlocksPerRow++;
 		}
