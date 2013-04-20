@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.game.Units.Block;
 
 public class Level {
@@ -45,7 +48,9 @@ public class Level {
 		for (int i = 0; i < rand.nextInt(maxBlocksPerRow); i++) {
 			currBlock = new Block(rand.nextInt(gameWidth - Block.width),0, colorPicker.randomColor());
 			while (collisionCheck(currBlock, blockList)) {
-				currBlock = new Block(rand.nextInt(gameWidth - Block.width),rand.nextInt(5),colorPicker.randomColor());
+				//currBlock = new Block(rand.nextInt(gameWidth - Block.width),rand.nextInt(5),colorPicker.randomColor());
+				currBlock = new Block(rand.nextInt(gameWidth - Block.width),rand.nextInt(5), 50, 50,2,3,GamePanel.pics.get(0));
+				
 			}
 			blockList.add(currBlock);
 		}
