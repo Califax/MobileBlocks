@@ -38,7 +38,7 @@ public class Level {
 		for (int i = 0; i < rand.nextInt(maxBlocksPerRow); i++) {
 			currBlock = new Block(rand.nextInt(gameWidth - Block.width),0, colorPicker.randomColor());
 			while (collisionCheck(currBlock, blockList)) {
-				currBlock = new Block(rand.nextInt(gameWidth - Block.width),0,colorPicker.randomColor());
+				currBlock = new Block(rand.nextInt(gameWidth - Block.width),rand.nextInt(5),colorPicker.randomColor());
 			}
 			blockList.add(currBlock);
 		}
