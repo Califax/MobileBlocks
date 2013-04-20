@@ -1,16 +1,22 @@
 package com.game.mobileblocks;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.game.Units.Block;
+
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 {
 	private static final String TAG = GamePanel.class.getSimpleName();
 	private GameThread thread; 
-
+	private List<Block> blockList = new ArrayList<Block>();
+	
 	public GamePanel(Context context) {
 		super(context);
 		// adding the callback (this) to the surface holder to intercept events
