@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.game.Units.Bins;
 import com.game.Units.Block;
 import com.game.Units.WaveyBlock;
 
@@ -25,11 +26,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	private ColorPicker colorPicker = new  ColorPicker();
 	private Player player;
 	private Level level;
+	private Bins bins;
 	
 	public GamePanel(Context context) {
 		super(context);
 		// adding the callback (this) to the surface holder to intercept events
 		getHolder().addCallback(this);
+		player = new Player(0, 3);
 
 		// create blocks and load bitmap
 		// create the game loop thread
@@ -78,9 +81,22 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 				}
 				last = System.currentTimeMillis();
 			}
-			for (Block block : blockList)
-			{
+			List<Block> blocksToRemove = new ArrayList<Block>();
+			for (Block block : blockList) {
 				block.update(2000);
+				
+				if (block.getY() + block.getHeight() > height - 6) {
+					if (bins.collisionCheck(block) == block.getColor()) {
+						player.incScore(); 
+					}
+					else {
+						player.decLives();
+					}
+					blocksToRemove.add(block);
+				}
+			}
+			for (Block block : blocksToRemove) {
+				blockList.remove(block);
 			}
 		}
 
@@ -120,6 +136,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 				block.draw(canvas);
 			}
 		}
+		bins.drawBins(canvas);
 	}
 
 
@@ -127,6 +144,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		this.height = h;
 		this.width  = w;
 		level = new Level(width);
+		bins = new Bins();
 	}
 	
 }

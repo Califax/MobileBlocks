@@ -18,6 +18,8 @@ public class Level {
 	private List<Block> blockList;
 	private Random rand;
 	private ColorPicker colorPicker = new ColorPicker();
+	private int blockWidth = 50;
+	private int blockHeight = 50;
 	
 	public Level(int gameWidth) {
 		this(5, 1, 3, 5, gameWidth);
@@ -41,11 +43,12 @@ public class Level {
 	public List<Block> randomBlocks() {
 		rand = new Random();
 		Block currBlock;
+		
 		blockList = new ArrayList<Block>();
 		for (int i = 0; i < rand.nextInt(maxBlocksPerRow); i++) {
-			currBlock = new Block(rand.nextInt(gameWidth - Block.width),0, colorPicker.randomColor());
+			currBlock = new Block(rand.nextInt(gameWidth - blockWidth),0, colorPicker.randomColor());
 			while (collisionCheck(currBlock, blockList)) {
-				currBlock = new Block(rand.nextInt(gameWidth - Block.width),rand.nextInt(5),colorPicker.randomColor());
+				currBlock = new Block(rand.nextInt(gameWidth - blockWidth),0,colorPicker.randomColor());
 			}
 			blockList.add(currBlock);
 		}
