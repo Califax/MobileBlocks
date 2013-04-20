@@ -62,13 +62,13 @@ public class Level {
 	}
 
 	public void update(int score) {
-		if (score % 30 == 0) {
+		if (score % 20 == 0) {
 			maxSpeed++;
 		}
-		if (score % 35 == 0) {
+		if (score % 25 == 0) {
 			minSpeed++;
 		}
-		if (score % 50 == 0) {
+		if (score % 30 == 0) {
 			blockGenSpeed++;
 			maxBlocksPerRow++;
 		}
