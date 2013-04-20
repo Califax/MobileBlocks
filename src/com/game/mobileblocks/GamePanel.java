@@ -32,10 +32,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		getHolder().addCallback(this);
 
 		// create blocks and load bitmap
-		
 		// create the game loop thread
 		thread = new GameThread(getHolder(), this);
-		
+
 		// make the GamePanel focusable so it can handle events
 		setFocusable(true);
 	}
@@ -45,7 +44,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
@@ -66,22 +65,25 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		} catch (InterruptedException e) {
 			// try again shutting down the thread
 		}
-		
+
 	}
-	
-	public void update() 
-	{			
+
+	public void update() {
+
 		synchronized (blockList) {
-			if(blockList.size() < TOTAL_BLOCKS)
-			{
-				genRandomBlocks();
+			if (System.currentTimeMillis() - last > 1000) {
+				if(blockList.size() < TOTAL_BLOCKS)
+				{
+					genRandomBlocks();
+				}
+				last = System.currentTimeMillis();
 			}
-			//last = System.currentTimeMillis();
 			for (Block block : blockList)
 			{
 				block.update(2000);
 			}
 		}
+
 	}
 	
 	public void genRandomBlocks() {
@@ -109,7 +111,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		return false;
 
 	}	
-	
+
 	public void render(Canvas canvas)
 	{
 		canvas.drawColor(Color.BLUE);
