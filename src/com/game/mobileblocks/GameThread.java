@@ -35,6 +35,10 @@ public class GameThread extends Thread {
 
 			try {
 				canvas = this.surfaceHolder.lockCanvas();
+				if (canvas != null)
+				{
+					this.gamePanel.updateSize(canvas.getWidth(),canvas.getHeight());
+				}
 				synchronized (surfaceHolder) {
 					// update game state 
 					this.gamePanel.update();
