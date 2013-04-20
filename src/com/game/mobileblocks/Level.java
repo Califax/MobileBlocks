@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.game.Units.Block;
+import com.game.Units.WaveyBlock;
 
 public class Level {
 
@@ -46,10 +50,17 @@ public class Level {
 		
 		blockList = new ArrayList<Block>();
 		for (int i = 0; i < rand.nextInt(maxBlocksPerRow); i++) {
-			currBlock = new Block(rand.nextInt(gameWidth - blockWidth),0, colorPicker.randomColor());
-//			while (collisionCheck(currBlock, blockList)) {
-//				currBlock = new Block(rand.nextInt(gameWidth - blockWidth),0,colorPicker.randomColor());
-//			}
+
+			if( rand.nextInt(2) == 1)
+				currBlock = new Block(rand.nextInt(gameWidth - blockWidth),0, colorPicker.randomColor());
+			else
+				currBlock = new WaveyBlock(rand.nextInt(gameWidth - blockWidth),rand.nextInt(5), 50, 50,2,3,colorPicker.randomColor());
+			//currBlock = new Block(rand.nextInt(gameWidth - blockWidth),rand.nextInt(5), 50, 50,2,3,GamePanel.pics.get(0));
+			while (collisionCheck(currBlock, blockList)) {
+				currBlock = new Block(rand.nextInt(gameWidth - blockWidth),rand.nextInt(5),colorPicker.randomColor());
+				//currBlock = new Block(rand.nextInt(gameWidth - blockWidth),rand.nextInt(5), 50, 50,2,3,GamePanel.pics.get(0));
+
+			}
 			blockList.add(currBlock);
 		}
 		return blockList;
@@ -67,6 +78,7 @@ public class Level {
 	public void update(int score) {
 		if (score % 5 == 0) {
 			maxSpeed++;
+			if(creationSpeed > 100) creationSpeed -=10;
 		}
 		if (score % 10 == 0) {
 			minSpeed++;
