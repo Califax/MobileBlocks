@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.game.Units.Bins;
 import com.game.Units.Block;
 import com.game.Units.WaveyBlock;
 
@@ -28,6 +29,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	private ColorPicker colorPicker = new  ColorPicker();
 	private Player player;
 	private Level level;
+	private Bins bins;
 	private final String score = "Score: ";
 	private final String lives = "Lives: ";
 	private String score_plus = "";
@@ -51,7 +53,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		p.setColor(Color.CYAN);
 		p.setTextSize(paintSize);
 		player = new Player(0,3);
-		pics.add(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+		pics.add(BitmapFactory.decodeResource(getResources(), R.drawable.bannana));
 	}
 
 
@@ -84,18 +86,33 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 	}
 
 	public void update() {
-
+		if (player.getLives() <= 0) {
+			
+		}
 		synchronized (blockList) {
-			if (System.currentTimeMillis() - last > 1000) {
+			if (System.currentTimeMillis() - last > level.getCreationSpeed()) {
 				if(blockList.size() < TOTAL_BLOCKS)
 				{
 					genRandomBlocks();
 				}
 				last = System.currentTimeMillis();
 			}
-			for (Block block : blockList)
-			{
+			List<Block> blocksToRemove = new ArrayList<Block>();
+			for (Block block : blockList) {
 				block.update(2000);
+				
+				if (block.getY() + block.getHeight() > height - 6) {
+					if (bins.collisionCheck(block) == block.getColor()) {
+						player.incScore(); 
+					}
+					else {
+						player.decLives();
+					}
+					blocksToRemove.add(block);
+				}
+			}
+			for (Block block : blocksToRemove) {
+				blockList.remove(block);
 			}
 		}
 
@@ -132,32 +149,22 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 		canvas.drawColor(Color.BLACK);
 		score_plus = score + player.getScore();
 		lives_plus = lives + player.getLives();
-		//float[] pos = genPos(score_plus);
 		canvas.drawText(score_plus, 0,paintSize, p);
 		canvas.drawText(lives_plus, 3*width/4,paintSize, p);
-		//canvas.drawPosText(score_plus, pos, p);
 		synchronized (blockList) {
 			for (Block block : blockList) {
 				block.draw(canvas);
 			}
 		}
+		bins.drawBins(canvas);
 	}
 
-	/*public float[] genPos(String s)
-	{
-		float[] retFloatArr = new float[s.length()*2];
-		for(int i = 0; i  < retFloatArr.length; i+=2)
-		{
-			retFloatArr[i] = i*2;
-			retFloatArr[i+1] = 2;
-		}
-		return retFloatArr;
-	}*/
 
 	public void updateSize(int w, int h) {
 		this.height = h;
 		this.width  = w;
 		level = new Level(width);
+		bins = new Bins();
 	}
 	
 }
