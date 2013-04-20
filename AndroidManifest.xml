@@ -16,17 +16,17 @@
         <activity android:name="com.game.mobileblocks.BlocksDisplayActivity" >
              <intent-filter>
                 <action android:name="com.game.mobileblocks.BlocksDisplayActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             
         </activity>
         <activity
-            android:name="com.game.mobileblocks.Splash"
+            android:name=".Splash"
+             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+		
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

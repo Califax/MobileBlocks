@@ -45,8 +45,8 @@ public class BlocksDisplayActivity extends Activity {
 		return true;
 	}
 	
-	public void onPause() {
-		
-	}
+	/*public void onPause() {
+		super.onPause();
+	}*/
 
 }

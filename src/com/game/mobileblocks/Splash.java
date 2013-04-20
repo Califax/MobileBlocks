@@ -25,7 +25,7 @@ public class Splash extends Activity{
 			{
 				try
 				{
-					sleep(1000);
+					sleep(2000);
 				} 
 				catch(InterruptedException e) 
 				{
@@ -45,7 +45,7 @@ public class Splash extends Activity{
 	
 	protected void onPause() {
 		super.onPause();
-		splash_sound.release();
+		//splash_sound.release();
 		finish();
 	}
 
